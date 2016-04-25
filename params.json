@@ -1,0 +1,6 @@
+{
+  "name": "Configplatform",
+  "tagline": "Real-time configuration key-value store using Redis and JS",
+  "body": "# Configuration Platform\r\nReal-time configuration key-value store using Redis and JS.\r\n\r\n### ConfigPlatform Flow\r\n[Imgur](http://i.imgur.com/l9GoTt7.png)",
+  "note": "Don't delete this file! It's used internally to help with page regeneration."
+}
