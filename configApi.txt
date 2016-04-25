@@ -1,0 +1,7 @@
+AddConfig
+	POST
+	Adds the specified config option to Redis
+
+GetConfig
+	GET
+	Gets the contents of config database
