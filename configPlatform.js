@@ -117,12 +117,3 @@ server.listen(8000, function()
 {
     console.log("Server listening on: http://localhost:8000");
 });
-
-var WriteLKGC = function()
-{
-	console.log('\nWriting LKGC file with contents:\n' + JSON.stringify(configObj));
-	jsonFile.writeFile(file, configObj, function (err) 
-	{
-		if(err) console.error(err);
-	});
-}
