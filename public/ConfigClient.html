@@ -1,0 +1,121 @@
+<html ng-app = 'ConfigApp'>
+	<head>
+		<title>test</title>
+		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+		<script src="module.js"></script>
+	</head>
+
+	<body id = 'controller' ng-controller = 'ConfigController' ng-init = 'loadConfigs()' class = 'col-lg-offset-2 col-lg-8 container'>
+		<script type = "text/javascript">
+ 			$(document).ready(function() {
+ 				var NewGuid = function()
+ 				{
+ 					return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) 
+ 					{
+						var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
+					    return v.toString(16);
+					});
+ 				}
+
+				$.fn.serializeObject = function()
+				{
+				    var o = {};
+				    var a = this.serializeArray();
+				    $.each(a, function() {
+				        if (o[this.name] !== undefined) {
+				            if (!o[this.name].push) {
+				                o[this.name] = [o[this.name]];
+				            }
+				            o[this.name].push(this.value || '');
+				        } else {
+				            o[this.name] = this.value || '';
+				        }
+				    });
+				    return o;
+				};
+
+				$(function() {
+				    $('#submitButton').click(function() 
+				    {
+				        var data = $('#configForm').serializeObject();
+				        var id = NewGuid();
+				        console.log('Generated ID ' + id);
+				        data['id'] = id;
+				        console.log(data);
+				        $.post('/AddConfig', data, function(res)
+				        {
+				        	console.log('Sent data!');
+				        	angular.element('#controller').scope().loadConfigs();
+				        	angular.element('#controller').scope().$apply();
+				        });
+				    });
+				});
+
+				$('#configForm').on('submit', function() {
+				    $(this).each(function() {
+				        this.reset();
+				    });
+				})
+			});
+		</script>
+		
+		<div class = 'jumbotron page-header'>
+			<h1>Configuration Platform</h1>
+			<form id = "configForm" class = 'form-inline'>
+				<input type = "text" class = 'form-control' name = "application" placeholder = 'Application'>
+				<input type = "text" class = 'form-control' name = "key" placeholder = 'Key'>
+				<input type = "text" class = 'form-control' name = "value" placeholder = 'Value'>
+				<input type = "submit" id = "submitButton" class="btn btn-primary" value = 'Add Config Key'>
+			</form>
+		</div>
+		<form>
+		    <div class="form-group">
+		      <div class="input-group">
+		        <div class="input-group-addon"><i class="fa fa-search"></i></div>
+
+		        <input type="text" class="form-control" placeholder="Filter here..." ng-model="filterString">
+
+		      </div>      
+		    </div>
+		  </form>
+		<div>
+			<div>
+				<table class = 'table'>
+					<thead>
+						<tr>
+							<th>Application</th>
+							<th>Config Key</th>
+							<th>Config Value</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="config in configs.configs | orderBy : 'application' | filter : filterString" ng-include="getTemplate(config)">
+					</tbody>
+				</table>
+				<script type="text/ng-template" id="display">
+			        <td>{{config.application}}</td>
+			        <td>{{config.key}}</td>
+			        <td>{{config.value}}</td>
+			        <td>
+			            <button ng-click="editConfig(config)" class="btn btn-primary">Edit</button>
+			            <button ng-click="deleteConfig(config)" class="btn btn-primary">Delete</button>
+			        </td>
+			    </script>
+			    <script type="text/ng-template" id="edit">
+			        <td><input type="text" ng-model="configs.selected.application" /></td>
+			        <td><input type="text" ng-model="configs.selected.key" /></td>
+			        <td><input type="text" ng-model="configs.selected.value" /></td>
+			        <td>
+			            <button ng-click="saveConfig($index)" class="btn btn-primary">Save</button>
+			            <button ng-click="reset()" class="btn btn-primary">Cancel</button>
+			        </td>
+			    </script>
+			</div>
+		</div>
+	</body>
+</html>
