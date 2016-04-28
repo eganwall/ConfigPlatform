@@ -1,33 +1,36 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
+
   <head>
-    <meta charset="utf-8">
+    <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Configplatform by eganwall</title>
+    <meta name="description" content="Configplatform : Real-time configuration key-value store using Redis and JS">
 
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/github-light.css">
-    <meta name="viewport" content="width=device-width">
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Configplatform</title>
   </head>
+
   <body>
-    <div class="wrapper">
-      <header>
-        <h1>Configplatform</h1>
-        <p>Real-time configuration key-value store using Redis and JS</p>
 
-        <p class="view"><a href="https://github.com/eganwall/ConfigPlatform">View the Project on GitHub <small>eganwall/ConfigPlatform</small></a></p>
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/eganwall/ConfigPlatform">View on GitHub</a>
 
+          <h1 id="project_title">Configplatform</h1>
+          <h2 id="project_tagline">Real-time configuration key-value store using Redis and JS</h2>
 
-        <ul>
-          <li><a href="https://github.com/eganwall/ConfigPlatform/zipball/master">Download <strong>ZIP File</strong></a></li>
-          <li><a href="https://github.com/eganwall/ConfigPlatform/tarball/master">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="https://github.com/eganwall/ConfigPlatform">View On <strong>GitHub</strong></a></li>
-        </ul>
-      </header>
-      <section>
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/eganwall/ConfigPlatform/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/eganwall/ConfigPlatform/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
         <h1>
 <a id="configuration-platform" class="anchor" href="#configuration-platform" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Configuration Platform</h1>
 
@@ -63,12 +66,17 @@
 
 <p>Because the configuration of each application is stored as JSON, any language or framework capable of opening a file and parsing JSON can leverage this functionality to a certain extent. Although Redis functionality is necessary for real-time configuration updates, it's fairly trivial to have an application re-load the LKGC file at 3- or 5-minute intervals in order to capture changes in configuration state. A consuming service will load the LKGC file at startup and store the entries that correspond to its own appname. It will also subscribe to the Redis channel corresponding to its appname, and any changes in config state will be published for the service to handle itself. Since the ConfigMon service will handle updating the local LKGC file, the consuming service only needs to update its internal configuration object that it populated with the LKGC's contents on startup. Basically, as long as the consumer maintains a Redis connection, the configuration can be updated in real-time from the web interface. Neat, huh?</p>
       </section>
-      <footer>
-        <p>This project is maintained by <a href="https://github.com/eganwall">eganwall</a></p>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Configplatform maintained by <a href="https://github.com/eganwall">eganwall</a></p>
+        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
       </footer>
     </div>
-    <script src="javascripts/scale.fix.js"></script>
+
     
+
   </body>
 </html>
